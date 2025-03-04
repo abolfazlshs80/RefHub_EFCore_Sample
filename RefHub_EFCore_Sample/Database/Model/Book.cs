@@ -23,10 +23,12 @@ namespace RefHub_EFCore_Sample.Database.Model
     {
         [Key]
         public int BookId { get; set; }
+        public int Quntity { get; set; }
         public int LanguageId { get; set; }
         public int CategoryId { get; set; }
         public int PersonLevelId { get; set; }
         public string ISBN { get; set; }
+        public string Title { get; set; }
         public string PublisherName { get; set; }
         public string PublisherYear { get; set; }
         public int View { get; set; }

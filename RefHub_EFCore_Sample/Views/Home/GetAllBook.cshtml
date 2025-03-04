@@ -1,0 +1,89 @@
+﻿@model IEnumerable<RefHub_EFCore_Sample.Database.Model.Book>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quntity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LanguageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonLevelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublisherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublisherYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.View)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quntity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LanguageId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonLevelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublisherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublisherYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.View)
+            </td>
+            <td>
+        @*         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | *@
+                    @Html.ActionLink("Details", "FindBook", new { bookId=item.BookId }) |
+@*                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

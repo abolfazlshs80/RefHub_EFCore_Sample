@@ -8,6 +8,13 @@ namespace RefHub_EFCore_Sample.Database.Configuration
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
+            builder
+                .Property<DateTime>("CreateDate")
+                .HasDefaultValueSql("GETDATE()");
+
+            builder
+                .Property<DateTime>("UpdateDate")
+                .HasDefaultValueSql("GETDATE()");
             builder.HasKey(a => new { a.BookId, });
             builder
             .Property(p => p.Price)

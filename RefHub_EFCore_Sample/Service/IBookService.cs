@@ -4,12 +4,13 @@ namespace RefHub_EFCore_Sample.Service
 {
     public interface IBookService
     {
-        Task<List<Book>> GetAllAsync();
-
+        IQueryable<Book> GetAllAsync();
+        Task<Book> GetByNameAsync(string Name);
+        Task<List<string>> GetAllNameBooksAsync();
         Task<Book> GetByIdAsync(int id);
-
+         Task<bool> IsExistsBook(string title);
         Task AddAsync(Book item);
-        Task UpdateAsync(Book item);
-        Task DeleteAsync(int id);
+        Task<bool> UpdateAsync(Book item);
+        Task<bool> DeleteAsync(int id);
     }
 }

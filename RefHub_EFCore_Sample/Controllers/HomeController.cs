@@ -18,56 +18,108 @@ namespace RefHub_EFCore_Sample.Controllers
             _unitOfWork = unitOfWork;
         }
 
+
+        #region Task1
+
+        public async Task<IActionResult> CreateBook(Book book)
+        {
+            #region Fill All Record
+
+
+            book.Title = "test12";
+            book.CategoryId = 1;
+            book.ISBN = "";
+            book.PersonLevelId = 1;
+            book.LanguageId = 1;
+            book.Quntity = 1;
+            book.PublisherName = "";
+            book.View = 2;
+            book.PublisherYear = "2018";
+            book.Price = new Money(1200.50m, "USD");
+            #endregion
+
+            await _unitOfWork.BookService.AddAsync(book);
+            return View("Index");
+        }
+
+        #endregion
+
+
+        #region Task2
+
+        public async Task<IActionResult> EditBook(Book book)
+        {
+           
+            #region Fill All Record
+
+            book.BookId = 2;
+            book.Title = "test12";
+            book.CategoryId = 1;
+            book.ISBN = "";
+            book.PersonLevelId = 1;
+            book.LanguageId = 1;
+            book.Quntity = 1;
+            book.PublisherName = "";
+            book.View = 2;
+            book.PublisherYear = "2018";
+            book.Price = new Money(1200.50m, "USD");
+            #endregion
+
+         bool status=   await _unitOfWork.BookService.UpdateAsync(book);
+            return View("Index");
+        }
+
+        #endregion
+        #region Task3
+
+
+        public async Task<IActionResult> DeleteBook(int bookId = 1)
+        {
+
+
+            bool IsStatus = await _unitOfWork.BookService.DeleteAsync(bookId);
+            return View("Index");
+        }
+        #endregion
+        #region Task4
+
+
+        public async Task<IActionResult> FindBook(int bookId = 2)
+        {
+
+
+            var book = await _unitOfWork.BookService.GetByIdAsync(bookId);
+            return View(book);
+        }
+        #endregion
+        #region Task 5
+
+
+        public async Task<IActionResult> GetNamesBook()
+        {
+
+
+            var book = await _unitOfWork.BookService.GetAllNameBooksAsync();
+            return View("Index");
+        }
+        #endregion
+
+        #region Task 6
+
+
+        public async Task<IActionResult> GetAllBook()
+        {
+
+
+            var book =  _unitOfWork.BookService.GetAllAsync();
+            return View( book);
+        }
+        #endregion
         public async Task<IActionResult> Index()
         {
-            try
-            {
-                //await _unitOfWork.BookService.AddAsync(new Book()
-                //{
-                    
-                //    CategoryId = 1,
-                //    ISBN = "",
-                //    PersonLevelId = 1,
-                //    LanguageId = 1,
-                //    PublisherName = "",
-                //    View = 2,
-                //    PublisherYear = "2018",
-                //    Price = new Money(1200.50m, "USD")
-                //});
+  
 
-                //await _unitOfWork.OrderService.AddAsync(new Order()
-                //{
-                //    UserId = 1,
-                //    Count = 2,
-                //    UserIdAddress = 2,
-                    
-                //    TotalPrice = 1000,
-                //    Status = OrderStatus.Pending
-                //});
-                //await _unitOfWork.UserService.AddAsync(
-                //new User()
-                //{
-                //     UserName = "User", Name = "User", Family = "_User", Email = "User@localhost.com", Password = "123" ,
-                //    Attributes = new Dictionary<string, string>
-                //    {
-                //        { "Color", "Silver" },
-                //        { "Weight", "2.5kg" },
-                //        { "Storage", "512GB SSD" }
-                //    }
-
-                //});
-            }
-            catch (ValidateModelException ex)
-            {
-                
-                Console.WriteLine(ex); 
-            }
-            var category = await _unitOfWork.CategoryService.GetAllAsync();
-
-            var order = await _unitOfWork.UserService.GetByIdAsync(3);
-            
-            //   await _unitOfWork.CategoryService.UpdateAsync(category?.FirstOrDefault());
-            return View();
+            return View("GetAllBook", _unitOfWork.BookService.GetAllAsync());
         }
 
         public IActionResult Privacy()
