@@ -12,6 +12,7 @@ namespace RefHub_EFCore_Sample.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
 
+        public int Take { get; set; } = 4;
         public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
@@ -107,19 +108,22 @@ namespace RefHub_EFCore_Sample.Controllers
         #region Task 6
 
 
-        public async Task<IActionResult> GetAllBook()
+        public async Task<IActionResult> GetAllBook(int page=0)
         {
-
-
-            var book =  _unitOfWork.BookService.GetAllAsync();
+            int count;
+            var book = _unitOfWork.BookService.GetAllByPagination(out count, Take,Page: page);
+            ViewBag.Page = page;
+            ViewBag.Count = count;
+            ViewBag.Take = Take;
+           
             return View( book);
         }
         #endregion
         public async Task<IActionResult> Index()
         {
-  
 
-            return View("GetAllBook", _unitOfWork.BookService.GetAllAsync());
+
+            return RedirectToAction("GetAllBook");
         }
 
         public IActionResult Privacy()

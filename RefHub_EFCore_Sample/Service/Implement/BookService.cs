@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using RefHub_EFCore_Sample.Database.Context;
 using RefHub_EFCore_Sample.Database.Model;
 
@@ -15,7 +16,11 @@ namespace RefHub_EFCore_Sample.Service.Implement
         {
             return _context.Book;
         }
-
+        public IQueryable<Book> GetAllByPagination(out int count, int Take = 4, int Page = 0)
+        {
+            count = _context.Book.Count();
+            return _context.Book.Skip(Take*Page).Take(Take);
+        }
         public async Task<List<string>> GetAllNameBooksAsync()
         {
             return await _context.Book.Select(a=>a.Title).ToListAsync();
